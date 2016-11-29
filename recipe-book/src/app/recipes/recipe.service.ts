@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Http, Headers, Response } from '@angular/http';
+import 'rxjs/rx';
 import { Recipe } from './recipe';
 import { Ingredient } from '../shared/ingredient';
 
 @Injectable()
 export class RecipeService {
+  recipesChanged = new EventEmitter<Recipe[]>();
   private recipes: Recipe[] = [
     new Recipe('Masala Dosa', 
       'Masala dosa or Masale Dose is a variant of the popular South Indian food dosa and has its origins in Tuluva Mangalorean cuisine made popular by the Udupi hotels all over India.', 
@@ -35,7 +38,7 @@ export class RecipeService {
       [])
   ];
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   getRecipes() {
     return this.recipes;
@@ -55,5 +58,26 @@ export class RecipeService {
 
   editRecipe(oldRecipe: Recipe, newRecipe: Recipe) {
     this.recipes[this.recipes.indexOf(oldRecipe)] = newRecipe;
+  }
+
+  storeData() {
+    const body = JSON.stringify(this.recipes);
+    console.log('RecipeService.storeData() - recipes:', this.recipes);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put('https://recipe-book-23fa0.firebaseio.com/recipes.json', body, headers);
+  }
+
+  fetchData() {
+    this.http.get('https://recipe-book-23fa0.firebaseio.com/recipes.json')
+      .map((response: Response) => response.json())
+      .subscribe(
+        (data: Recipe[]) => {
+          console.log('RecipeService.fetchData() - data:', data);
+          this.recipes = data;
+          this.recipesChanged.emit(this.recipes);
+        }
+      );
   }
 }
