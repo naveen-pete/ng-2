@@ -12,7 +12,10 @@ export class HeaderComponent {
 
   onStore() {
     this.recipeService.storeData().subscribe(
-      data => console.log(data),
+      data => {
+        console.log(data);
+        console.log('Recipes saved successfully!');
+      },
       error => console.log(error)
     );
   }
