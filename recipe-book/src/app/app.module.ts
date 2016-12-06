@@ -4,22 +4,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
-import { DropdownDirective } from './dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipeService } from './recipes/recipe.service';
 import { routing } from './app.routing';
-import { HomeComponent } from './home.component';
+import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    DropdownDirective,
-    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    CoreModule,
     routing
   ],
   providers: [ShoppingListService, RecipeService],
