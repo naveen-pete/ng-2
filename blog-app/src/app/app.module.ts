@@ -9,6 +9,7 @@ import { NavBarComponent } from './nav-bar.component';
 import { HomeComponent } from './home.component';
 import { UsersComponent } from './users.component';
 import { PostsComponent } from './posts.component';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { PostsComponent } from './posts.component';
     HttpModule,
     AppRouting
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
