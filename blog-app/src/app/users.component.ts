@@ -14,7 +14,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(private _userService: UserService) {}
 
   ngOnInit() {
-    this._subscription = this._userService.getUsers().subscribe(data => this.users = data);
+    console.log('Calling UserService.getUsers()..');
+    this._subscription = this._userService.getUsers()
+      .subscribe(data => {
+        console.info('Users retrieved successfully');
+        this.users = data;
+      });
   }
 
   ngOnDestroy() {

@@ -21,7 +21,16 @@ export class UserService {
   }
 
   getUser(userId) {
+    console.log('Getting User');
+    console.log('userId:', userId);
     return this._http.get(this.getUrlForUser(userId))
+      .map(res => res.json());
+  }
+
+  updateUser(user) {
+    console.log('Updating User');
+    console.log('user:', user);
+    return this._http.put(this.getUrlForUser(user.id), JSON.stringify(user))
       .map(res => res.json());
   }
 

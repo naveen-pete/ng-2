@@ -12,7 +12,6 @@ import { User } from './user';
   templateUrl: './user-form.component.html'
 })
 export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
-  private _userId: string;
   private _subscription: Subscription;
   form: FormGroup;
   user = new User();
@@ -36,15 +35,21 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
   }
 
   ngOnInit() {
-    this._subscription = this._activatedRoute.params.subscribe(params => this._userId = params['id']);
+    var userId;
+    this._subscription = this._activatedRoute.params.subscribe(params => userId = params['id']);
 
-    if(!this._userId) return;
+    if(!userId) return;
 
     this.title = "Edit User";
 
-    this._userService.getUser(this._userId)
+    console.log('Calling UserService.getUser()..');
+    this._userService.getUser(userId)
       .subscribe(
-        result => this.user = result,
+        result => {
+          console.info('User details retrieved successfully!');
+          this.user = result;
+          console.log('user:', this.user);
+        },
         error => {
           if(error.status == 404) {
             this._router.navigate(['/notfound']);
@@ -59,13 +64,35 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
   }
 
   save() {
-    console.log('Form submitted. Calling UserService.addUser()...');
-    this._userService.addUser(this.form.value)
-      .subscribe(result => {
-        console.log('result:', result);
-        this.form.markAsPristine();
-        this._router.navigate(['/users']);
-      });
+    if(this.user.id) {
+      console.log('Calling UserService.updateUser()..');
+      this._userService.updateUser(this.user)
+        .subscribe(
+          result => {
+            console.info('User details updated successfully!');
+            console.log('result:', result);
+          },
+          error => {
+            console.error('Error occurred while adding new user.');
+            console.error('error:', error);
+          }
+        );
+    } else {
+      console.log('Calling UserService.addUser()..');
+      this._userService.addUser(this.user)
+        .subscribe(
+          result => {
+            console.info('New user added successfully!');
+            console.log('result:', result);
+            this.form.markAsPristine();
+            this._router.navigate(['/users']);
+          },
+          error => {
+            console.error('Error occurred while adding new user.');
+            console.error('error:', error);
+          }
+        );
+    }
   }
 
   isFormDirty() {
