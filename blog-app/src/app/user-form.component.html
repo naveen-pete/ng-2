@@ -1,0 +1,57 @@
+<h1>Add a User</h1>
+<div class="row">
+  <div class="col-md-6 well">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <fieldset>
+        <legend>User</legend>
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" name="name" formControlName="name">
+          <div class="alert alert-danger" *ngIf="form.controls['name'].touched && !form.controls['name'].valid">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email" formControlName="email">
+          <div class="alert alert-danger" *ngIf="form.controls['email'].touched && !form.controls['email'].valid">
+            Please enter a valid Email.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" class="form-control" name="phone" formControlName="phone">
+        </div>
+      </fieldset>
+
+      <fieldset formGroupName="address">
+        <legend>Address</legend>
+
+        <div class="form-group">
+          <label>Street</label>
+          <input type="text" class="form-control" name="street" formControlName="street">
+        </div>
+
+        <div class="form-group">
+          <label>Suite</label>
+          <input type="text" class="form-control" name="suite" formControlName="suite">
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" class="form-control" name="city" formControlName="city">
+        </div>
+
+        <div class="form-group">
+          <label>Zip Code</label>
+          <input type="text" class="form-control" name="zipcode" formControlName="zipcode">
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+    </form>
+  </div>
+</div>
