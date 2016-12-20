@@ -25,4 +25,26 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._subscription.unsubscribe();
   }
+
+  deleteUser(user) {
+    if(confirm('Are you sure you want to delete ' + user.name + '?')) {
+      console.log('Calling UserService.deleteUser()..');
+
+      var index = this.users.indexOf(user);
+      this.users.splice(index, 1);
+
+      this._userService.deleteUser(user.id)
+        .subscribe(
+          result => {
+            console.info('User deleted successfully!');
+            console.log('result:', result);
+          },
+          error => {
+            console.error('Error occurred while deleting user.');
+            console.error('error:', error);
+            this.users.splice(index, 0, user);
+          }
+        );
+    }
+  }
 }

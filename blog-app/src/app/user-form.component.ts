@@ -73,7 +73,7 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
             console.log('result:', result);
           },
           error => {
-            console.error('Error occurred while adding new user.');
+            console.error('Error occurred while updating user.');
             console.error('error:', error);
           }
         );

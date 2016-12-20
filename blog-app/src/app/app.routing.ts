@@ -9,7 +9,7 @@ import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
 
 export const AppRouting = RouterModule.forRoot([
     { path: 'users/new', component: UserFormComponent, canDeactivate: [UnsavedChangesGuardService] },
-    { path: 'users/:id', component: UserFormComponent},
+    { path: 'users/:id', component: UserFormComponent, canDeactivate: [UnsavedChangesGuardService] },
     { path: 'users', component: UsersComponent },
     { path: 'posts', component: PostsComponent },
     { path: 'notfound', component: NotFoundComponent },
