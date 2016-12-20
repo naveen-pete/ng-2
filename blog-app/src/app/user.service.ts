@@ -12,4 +12,11 @@ export class UserService {
     return this._http.get(this._url)
       .map(res => res.json());
   }
+
+  addUser(user) {
+    console.log('Adding User');
+    console.log('user:', user);
+    return this._http.post(this._url, JSON.stringify(user))
+      .map(res => res.json());
+  }
 }

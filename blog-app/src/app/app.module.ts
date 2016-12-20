@@ -11,6 +11,7 @@ import { UsersComponent } from './users.component';
 import { PostsComponent } from './posts.component';
 import { UserService } from './user.service';
 import { UserFormComponent } from './user-form.component';
+import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { UserFormComponent } from './user-form.component';
     HttpModule,
     AppRouting
   ],
-  providers: [UserService],
+  providers: [UserService, UnsavedChangesGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
