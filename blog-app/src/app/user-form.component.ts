@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { FormComponent } from './unsaved-changes-guard.service';
 import { UserService } from './user.service';
+import { User } from './user';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html'
 })
-export class UserFormComponent implements OnInit, FormComponent {
+export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
+  private _userId: string;
+  private _subscription: Subscription;
   form: FormGroup;
-  user = { 
-    name: '',
-    email: '',
-    phone: '',
-    address: {
-      street: '',
-      suite: '',
-      city: '',
-      zipcode: ''
-    }
-  };
+  user = new User();
+  title = "New User";
 
-  constructor(_fb: FormBuilder, private _userService: UserService, private _router: Router) {
+  constructor(_fb: FormBuilder, 
+      private _userService: UserService, 
+      private _router: Router,
+      private _activatedRoute: ActivatedRoute) {
     this.form = _fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, this.checkEmail] ],
@@ -37,7 +35,28 @@ export class UserFormComponent implements OnInit, FormComponent {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._subscription = this._activatedRoute.params.subscribe(params => this._userId = params['id']);
+
+    if(!this._userId) return;
+
+    this.title = "Edit User";
+
+    this._userService.getUser(this._userId)
+      .subscribe(
+        result => this.user = result,
+        error => {
+          if(error.status == 404) {
+            this._router.navigate(['/notfound']);
+          }
+        }
+      );
+
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
 
   save() {
     console.log('Form submitted. Calling UserService.addUser()...');

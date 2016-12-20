@@ -19,4 +19,13 @@ export class UserService {
     return this._http.post(this._url, JSON.stringify(user))
       .map(res => res.json());
   }
+
+  getUser(userId) {
+    return this._http.get(this.getUrlForUser(userId))
+      .map(res => res.json());
+  }
+
+  private getUrlForUser(userId) {
+    return this._url + '/' + userId;
+  }
 }

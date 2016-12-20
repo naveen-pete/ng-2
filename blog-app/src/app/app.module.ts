@@ -12,6 +12,7 @@ import { PostsComponent } from './posts.component';
 import { UserService } from './user.service';
 import { UserFormComponent } from './user-form.component';
 import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
+import { NotFoundComponent } from './not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
     HomeComponent,
     UsersComponent,
     PostsComponent,
-    UserFormComponent
+    UserFormComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
