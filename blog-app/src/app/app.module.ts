@@ -17,6 +17,7 @@ import { UserFormComponent } from './user-form.component';
 import { PostsComponent } from './posts.component';
 import { PostService } from './post.service';
 import { SpinnerComponent } from './spinner.component';
+import { PaginationComponent } from './pagination.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SpinnerComponent } from './spinner.component';
     PostsComponent,
     UserFormComponent,
     NotFoundComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

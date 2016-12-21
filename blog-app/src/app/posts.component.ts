@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { PostService } from './post.service';
 
+import * as _ from 'underscore'; 
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
@@ -24,8 +26,10 @@ export class PostsComponent implements OnInit {
   
   users = [];
   posts = [];
+  pagedPosts = [];
 
   currentPost;
+  pageSize = 10;
 
   constructor(
         private _postService: PostService, 
@@ -61,6 +65,7 @@ export class PostsComponent implements OnInit {
         result => {
           console.info('Posts retrieved successfully!');
           this.posts = result;
+          this.pagedPosts = _.take(this.posts, this.pageSize);
         },
         error => {
           console.error('Error occurred while retrieving posts.');
@@ -94,4 +99,9 @@ export class PostsComponent implements OnInit {
 
     this.loadPosts(filter);
   }
+
+  onPageChanged(page) {
+    var startIndex = (page - 1) * this.pageSize;
+    this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
+	}
 }

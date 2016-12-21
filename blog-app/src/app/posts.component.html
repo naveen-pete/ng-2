@@ -10,8 +10,10 @@
 
     <app-spinner [visible]="postsLoading"></app-spinner>
 
+    <app-pagination [items]="posts" (page-changed)="onPageChanged($event)"></app-pagination>
+
     <ul class="list-group posts">
-      <li class="list-group-item" *ngFor="let post of posts" [class.active]="post === currentPost" (click)="select(post)">{{ post.title }}</li>
+      <li class="list-group-item" *ngFor="let post of pagedPosts" [class.active]="post === currentPost" (click)="select(post)">{{ post.title }}</li>
     </ul>
   </div>
 
