@@ -10,16 +10,24 @@ import { UserService } from './user.service';
 export class UsersComponent implements OnInit, OnDestroy {
   private _subscription: Subscription;
   users: any[];
+  isLoading = true;
 
   constructor(private _userService: UserService) {}
 
   ngOnInit() {
     console.log('Calling UserService.getUsers()..');
     this._subscription = this._userService.getUsers()
-      .subscribe(data => {
-        console.info('Users retrieved successfully');
-        this.users = data;
-      });
+      .subscribe(
+        result => {
+          console.info('Users retrieved successfully!');
+          this.users = result;
+        },
+        error => {
+          console.error('Error occurred while retrieving users.');
+          console.error('error:', error);
+        },
+        () => this.isLoading = false
+      );
   }
 
   ngOnDestroy() {

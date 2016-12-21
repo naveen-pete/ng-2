@@ -7,12 +7,17 @@ import { AppRouting } from './app.routing';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar.component';
 import { HomeComponent } from './home.component';
-import { UsersComponent } from './users.component';
-import { PostsComponent } from './posts.component';
-import { UserService } from './user.service';
-import { UserFormComponent } from './user-form.component';
 import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
 import { NotFoundComponent } from './not-found.component';
+
+import { UsersComponent } from './users.component';
+import { UserService } from './user.service';
+import { UserFormComponent } from './user-form.component';
+
+import { PostsComponent } from './posts.component';
+import { PostService } from './post.service';
+import { SpinnerComponent } from './spinner.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import { NotFoundComponent } from './not-found.component';
     UsersComponent,
     PostsComponent,
     UserFormComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,7 @@ import { NotFoundComponent } from './not-found.component';
     HttpModule,
     AppRouting
   ],
-  providers: [UserService, UnsavedChangesGuardService],
+  providers: [UserService, UnsavedChangesGuardService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

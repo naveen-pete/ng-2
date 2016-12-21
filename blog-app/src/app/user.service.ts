@@ -9,6 +9,7 @@ export class UserService {
   constructor(private _http: Http) {}
 
   getUsers() {
+    console.log('Getting users...');
     return this._http.get(this._url)
       .map(res => res.json());
   }
