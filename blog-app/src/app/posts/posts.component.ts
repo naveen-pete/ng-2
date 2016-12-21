@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from './user.service';
+import { UserService } from '../users/user.service';
 import { PostService } from './post.service';
 
 import * as _ from 'underscore'; 

@@ -10,14 +10,14 @@ import { HomeComponent } from './home.component';
 import { UnsavedChangesGuardService } from './unsaved-changes-guard.service';
 import { NotFoundComponent } from './not-found.component';
 
-import { UsersComponent } from './users.component';
-import { UserService } from './user.service';
-import { UserFormComponent } from './user-form.component';
+import { UsersComponent } from './users/users.component';
+import { UserService } from './users/user.service';
+import { UserFormComponent } from './users/user-form.component';
 
-import { PostsComponent } from './posts.component';
-import { PostService } from './post.service';
-import { SpinnerComponent } from './spinner.component';
-import { PaginationComponent } from './pagination.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostService } from './posts/post.service';
+import { SpinnerComponent } from './shared/spinner.component';
+import { PaginationComponent } from './shared/pagination.component';
 
 
 @NgModule({
