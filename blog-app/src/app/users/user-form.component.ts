@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { FormComponent } from '../unsaved-changes-guard.service';
+import { FormComponent } from '../shared/unsaved-changes-guard.service';
 import { UserService } from './user.service';
 import { User } from './user';
 
